@@ -1,11 +1,16 @@
 #include "colors.inc"
 #include "metals.inc"
 #include "woods.inc"
-#include "shapes.inc"
+#include "shapes.inc"           
+#include "textures.inc"
+#include "glass.inc"
 camera {
 //   location <3.75-8*cos(2*pi*clock), 5, 2.25-8*(sin(2*pi*clock))>  
-   location<-5,5,-8>
+   location<5,5,-8>
    look_at <3.75,1,2.25>
+
+   //location<-5,5,-8>
+   //look_at <3.75,1,2.25>
 }
 light_source {< 2, 13, -10> color White
 }
@@ -35,7 +40,13 @@ light_source {< 2, 13, -10> color White
 #declare gold_pawn = difference{
                          cone{<0,      0,0>,pawn_radius*0.8, <0,pawn_height   ,0>,pawn_radius }
                          cone{<0,pawn_radius*.05,0>,pawn_radius*0.5, <0,pawn_height+.1,0>,pawn_radius*.9} 
-                         texture{T_Gold_1B}
+                         material {
+                           texture {
+                               pigment { color rgbf <1, 1.0, 1, 0.5> }
+                               finish { F_Glass10 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           }
 } // end of difference
 
 
@@ -44,7 +55,13 @@ light_source {< 2, 13, -10> color White
                          // Round_Box(A, B, WireRadius, Merge)
                         Round_Box(<0,0,0>,<tower_lado, tower_height ,tower_lado>, 0.007, 0)
                         Round_Box(<tower_interior_a, 0, tower_interior_a>,<tower_interior_b, tower_height*1.1,tower_interior_b>, 0.07, 0)
-                        texture{T_Gold_1B}
+                         material {
+                           texture {
+                               pigment { color rgbf <1, 1.0, 1, 0.5> }
+                               finish { F_Glass10 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           }
 
 }                                             
 #declare gold_king = difference{                                    
@@ -52,21 +69,47 @@ light_source {< 2, 13, -10> color White
                         cylinder{<0,0,0>, <0, king_height, 0>, king_radius}
                           cylinder{<0,king_height*0.1,0>, <0, king_height*1.25, 0>, king_radius*0.95}
 
-                        texture{T_Gold_1B}
+                         material {
+                           texture {
+                               pigment { color rgbf <1, 1.0, 1, 0.5> }
+                               finish { F_Glass10 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           }
 
 }
 #declare gold_queen =   lathe{ quadratic_spline 6,
                        <0,0>,<0.3,0.0>,<0.05,0.1>,<0.1,0.6 >,<0.1,0.6>, <0.5, 1.1>
-                       texture{T_Gold_1B} 
+                        material {
+                           texture {
+                               pigment { color rgbf <1, 1.0, 1, 0.5> }
+                               finish { F_Glass10 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           } 
                        }  
-#declare gold_alfil =   lathe{ quadratic_spline 8,
+#declare gold_bishop =   lathe{ quadratic_spline 8,
                        <0,0>,<0.15,0.0>,<0.03,0.05>,<0.03,0.15>,<0.1,0.2>,<0.12,0.3 >,<0.15,0.6>, <0.15, 0.7>
-                       texture{T_Gold_1B} 
+                        material {
+                           texture {
+                               pigment { Col_Ruby_01 }
+                               finish { F_Glass1 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           } 
                        }  
                                                     
 #declare gold_knight =   lathe{ quadratic_spline 13,
                        <0.55,0.1>,<1.55,0.1>,<1.15,0.4 >,<1.2,0.5>, <1.2, 0.6>,<1.4,0.8>, <1.5,1.1>, <1.55, 1.1>, <1.5, 1.55>, <1.45, 1.8>, <1.4, 2>, <1.4, 2.2>, <1.55, 2.5>
-                       texture{T_Gold_1B} 
+                       //texture{Glass}
+                       material {
+                           texture {
+                               pigment { color rgbf <1, 1.0, 0, 0> }
+                               finish { F_Glass10 }
+                           }
+                             interior { I_Glass caustics 1 }
+                           }  
+                       
                        }
                              
 #declare silver_pawn = difference{
@@ -109,8 +152,8 @@ object{gold_knight translate <-5.3,0, 20> scale<0.3, 0.6, 0.3>}
                                                                
                                                                
  
-object{gold_alfil scale<2.2, 2.5, 2.2> translate <-1.6, 0, 0>}
-object{gold_alfil scale<2.2, 2.5, 2.2> translate <-1.6, 0, 4.5>}
+object{gold_bishop scale<2.2, 2.5, 2.2> translate <-1.6, 0, 0>}
+object{gold_bishop scale<2.2, 2.5, 2.2> translate <-1.6, 0, 4.5>}
 
 
 object{gold_king translate <-1.5,0, 1.75>}                
