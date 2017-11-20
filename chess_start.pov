@@ -30,7 +30,7 @@ light_source {< 2, 5, -10> color White
 #declare pawn_radius = 0.5;
 #declare tower_height = 1.25;
 #declare tower_lado = 0.8;
-#declare tower_center = tower_lado/2;  
+#declare tower_center = tower_lado/2 ; 
 #declare tower_thickness = 0.9;
 #declare tower_interior_a = tower_center - tower_center*tower_thickness;
 #declare tower_interior_b = tower_center + tower_center*tower_thickness; 
