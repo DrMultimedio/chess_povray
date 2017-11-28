@@ -46,8 +46,8 @@ scale 0.5}
 
 camera {
 //   location <3.75-8*cos(2*pi*clock), 5, 2.25-8*(sin(2*pi*clock))>  
-   location<5,5,-10>
-   look_at <0 ,0 ,0 >
+   location<-1,8,-7>
+   look_at <0 ,1 ,0 >
 
    //location<-5,5,-8>
    //look_at <3.75,1,2.25>
@@ -97,7 +97,7 @@ light_source {< 2, 5, -10> color White
     <0.4, 4.4>, // c
     
     <0,  0>  // point#6 (control point... not on curve)
-    pigment { Green }
+    texture {Silver_Metal}
   }
 
 #declare keychain_ring = sphere_sweep {
@@ -146,17 +146,15 @@ light_source {< 2, 5, -10> color White
     < 1.6, 3.3, -0.7>, 0.082
     < 1.4, 3.2, -0.7>, 0.082    
           
-        texture{
-      pigment{ color rgb<1,0.55,0.00>}
-      finish { phong 1}
-    } // end of texture
+
+    texture {Silver_Metal}
+
     //scale<1,1,1>
     //rotate<0,0,0>
     //translate<0,0.5,0
    }  // end of sphere_sweep object
    
-#declare keylabel = difference 
-    {
+#declare keylabel = 
         prism{
             cubic_spline
             0, // sweep the following shape from here ...
@@ -188,11 +186,13 @@ light_source {< 2, 5, -10> color White
             <1.7, 3.9>, // c
             
             <0,  0>  // point#6 (control point... not on curve)
-        }
-    box{      
-        <2.35,0.3, 3.85><4.9,1.2, 3.05>
+        
+
     
-    } 
+     texture{
+      pigment{ color rgb<1,0, 0>}
+      finish { phong 1}
+     }
 
 }   
 #declare boli = union{
@@ -206,72 +206,43 @@ light_source {< 2, 5, -10> color White
       finish { phong 1}
     } }
 }   
-#declare calculator = prism{ 
-            cubic_spline
-            0, // sweep the following shape from here ...
-            0.25, // ... up through here
-            25, // the number of points making up the shape ...
-            < 0, 0>, // point#1 (control point... not on curve)
-            <3.0, 0>, // c
-            <3.55, 0.04>,  //d
-            < 4.05, 0.16>,  //e
-            < 4.6,  0.4>,    //f
-            < 4.95, 0.66>,  //g
-            < 5.19, 3.55>,  //h
-            < 5.21,  5.55>,  //i
-            < 5.14,  8.17>,  //j
-            < 5.01,  8.44>,//k
-            < 4.41,  8.58>,//l
-            < 3.1,  8.6>,  //m
-            < 1.38,  8.54>,   //n
-            < 1.18,  8.44>,  //o
-            < 1.07,  8.22>,  //p
-            < 0.94,  5.76>,  //q
-            < 0.98,  3.52>, //r
-            < 1.05,  1.19>,    //s
-            < 1.15,  0.81>, //t 
-            < 1.28,  0.5>, //u
-            < 1.57,  0.23>,  //v
-            < 2.05,  0.15>,  //w
-            < 2.46,  0.03>,  //z
-        
-            
-            <3.0, 0>, // c
-            
-            <0,  0>  // point#6 (control point... not on curve)  
-               texture{
-                 pigment{color rgb<0.4,0.40,0.4>} //
-                    finish { phong 1 reflection 0.1}
-                } 
-               texture{
-                pigment{                                             
+#declare calculator =  object{
 
-                 // projects an image on the xy plane
-                 //from <0,0,0> to <1,1,0>
-                 // (aspect ratio 1:1)
-                 image_map{ png "fx350esplus.png"
-                 // imagetype "file name" - Path + .tga etc.
-                 // accepted types of images:
-                 // gif, tga, iff, ppm, pgm, png, jpeg, tiff, sys
-                 map_type 0 // 0=planar, 1=spherical, 2=cylindrical, 5=torus
-                 interpolate 2
-                  // 0=none, 1=linear, 2=bilinear, 4=normalized distance
-                  //
-              // for transpartent image parts use palette graphics (256 colors or less)
-              // gif version 87a, non interlaced, or png palette non interlaced
-              // filter Palette, Amount |
-              // filter all Amount |
-               //  transmit 215, 1 // Palette, Amount |
-              // transmit all Amount
-                } // end of image_map
-              } // end of pigment
-            
-              finish { diffuse 0.9 phong 1}// end of finish
-              scale <6,1.5,1> rotate<0,0,6> translate<5.8,0.00,2>
-              } // end of texture  ------------------
+    Round_Box(<0,0,0>,<2.45, 5 ,0.25>, 0.25, 0)    
+   texture{
+    pigment{color rgb<0.3, 0.3,0.3>} //
+    finish { phong 1 reflection 0.1}
+    }
+   texture{
+    pigment{
+     // projects an image on the xy plane
+     // from <0,0,0> to <1,1,0>
+     // (aspect ratio 1:1)
+     image_map{ png "fx350esplus.png"
+     // imagetype "file name" - Path + .tga etc.
+     // accepted types of images:
+     // gif, tga, iff, ppm, pgm, png, jpeg, tiff, sys
+     map_type 0 // 0=planar, 1=spherical, 2=cylindrical, 5=torus
+     interpolate 2
+      // 0=none, 1=linear, 2=bilinear, 4=normalized distance
+     once //
+  // for transpartent image parts use palette graphics (256 colors or less)
+  // gif version 87a, non interlaced, or png palette non interlaced
+  // filter Palette, Amount |
+  // filter all Amount |
+  //transmit 215, 1 // Palette, Amount |
+  // transmit all Amount
+    } // end of image_map
+  } // end of pigment
+
+  finish { diffuse 0.9 phong 1}// end of finish
+  scale <5,5,5> rotate<1,0,0> translate<-1.25,0.00,2>
+  } // end of texture  ------------------
+
+}
 
 
-}         
+         
 #declare keychain  = prism{
             cubic_spline
             0, // sweep the following shape from here ...
@@ -318,19 +289,17 @@ light_source {< 2, 5, -10> color White
             < 0.79, -0.63 >, //a1
 
 	        <0,  0>  // (control point... not on curve)     
-	        texture{
-      pigment{ color rgb<1,0.02,0.02>}
-      finish { phong 1}
-    }
+	        texture{Polished_Chrome}
         }
 
 /* Horizontal Plane */
-plane{ <0,1,0>, -0.012 pigment{ rgb<0.3,0.4,0.4> } }  
+plane{ <0,1,0>, -0.012 texture{T_Wood1 } }  
 
-//object{wallet translate <0,0, 0>}   
-//object{key translate <0,2, -5 >}   
-//object {keychain_ring }         
-//object {keylabel}    
-//object {boli}  
-//object {calculator}     
-object {keychain}
+object{wallet translate <0,0, 0>}   
+object{key scale<0.4, 0.4, 0.4> rotate<5,0,180> translate <0,0, 0 >}   
+object {keychain_ring scale<0.3, 0.3, 0.3> rotate<60,0,0> translate <-1.25,-0.25, 1.30 > }         
+object {keychain_ring scale<0.3, 0.3, 0.3> rotate<-10,-45,0> translate <-3.25,-0.2 , 0.75 > }         
+object {keylabel scale <0.4, 0.02, 0.4> rotate< 0,0,0> translate <-3.25,0.2, 0 >}    
+object {boli scale<1.5, 1.5, 1.5> rotate <90, 30, 0> translate <-0.5, 1.5, -1>} 
+object {calculator scale <1.5,1.5,1.5> rotate <65,0,0> translate<1, 0, -3.5> }     
+object {keychain scale<0.35, 0.35, 0.35> rotate <180, 0  , 90> translate <-2.95,0.1,0.5>}
